@@ -1,12 +1,16 @@
-{ pkgs, lib, config, ... }:
-let
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: let
   cfg = config.latex;
-  tex = (pkgs.texlive.combine { inherit (pkgs.texlive) scheme-full physics; });
+  tex = pkgs.texlive.combine {inherit (pkgs.texlive) scheme-full physics;};
   dependencies = [
     tex
   ];
 in {
-  imports = [ ];
+  imports = [];
 
   options = {
     latex = {

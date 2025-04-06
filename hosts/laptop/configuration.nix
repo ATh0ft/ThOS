@@ -1,20 +1,22 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
-{ config, lib, pkgs, inputs,... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../../modules/nixos_modules
-      ../../modules/nixos_modules/git      # Import Git module
-      ../../modules/nixos_modules/hyprland  # Import Hyprland module
-      ../../modules/nixos_modules/openssh
-      ../../modules/nixos_modules/tmux
-    ];
-
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../../modules/nixos_modules
+    ../../modules/nixos_modules/git # Import Git module
+    ../../modules/nixos_modules/hyprland # Import Hyprland module
+    ../../modules/nixos_modules/openssh
+    ../../modules/nixos_modules/tmux
+  ];
 
   nixpkgs.config.allowUnfree = true;
   syncthing.enable = true;
@@ -26,7 +28,7 @@
   networking.hostName = "laptop"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   # Set your time zone.
   time.timeZone = "Europe/Copenhagen";
@@ -35,73 +37,73 @@
   users.users.a = {
     isNormalUser = true;
     description = "alfred";
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = ["wheel"]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
       tree
     ];
   };
 
-
   nix.settings.experimental-features = ["nix-command" "flakes"];
-  
+
   environment.systemPackages = with pkgs; [
-    vim 
+    vim
     wget
-    kitty 
+    kitty
     home-manager
     git
     tree
     htop
     age
     inputs.agenix.packages.${pkgs.system}.default
+    jmtpfs
+    usbutils
+    glib
   ];
   services.displayManager.sddm.wayland.enable = true;
   services.displayManager.sddm.enable = true;
-  
 
-#  home-manager = {
-#    useGlobalPkgs = true; 
-#    useUserPackages = true;
-#    users = {
-#      a = import ./home.nix;
-#    };
-#  };
+  #  home-manager = {
+  #    useGlobalPkgs = true;
+  #    useUserPackages = true;
+  #    users = {
+  #      a = import ./home.nix;
+  #    };
+  #  };
 
   services.syncthing = {
     #declarative = {
-      overrideDevices = true;
-      overrideFolders = true;
+    overrideDevices = true;
+    overrideFolders = true;
     #};
     settings = {
       folders = {
-        "books" = { 
-	  path = "/home/a/sync/books"; 
-  	  devices = [ "eink" "workstation"]; 
-  	  versioning = { 
-	    type = "simple";
-	    params = { 
-	      keep = "10";
-	    }; 
-  	  }; 
-	};
-        "notes" = { 
- 	  path = "/home/a/sync/notes"; 
- 	  devices = ["eink" "workstation"]; 
-	  versioning = { 
-	    type = "simple"; 
-  	    params = { 
-	      keep = "10";
-	    }; 
-	  }; 
+        "books" = {
+          path = "/home/a/sync/books";
+          devices = ["eink" "workstation"];
+          versioning = {
+            type = "simple";
+            params = {
+              keep = "10";
+            };
+          };
+        };
+        "notes" = {
+          path = "/home/a/sync/notes";
+          devices = ["eink" "workstation"];
+          versioning = {
+            type = "simple";
+            params = {
+              keep = "10";
+            };
+          };
         };
       };
       devices = {
-        "eink" = { id = "X5SZ3EW-G7CDNUQ-KGBK2EL-23SZV5S-YUQFLNA-AV7DKTC-TVOKJNS-XEGSJAI"; };
-        "workstation" = { id = "WDMVTWV-DFMXTPI-4WDHEGU-WZ4PYYL-KPSHKJM-UCGKGDA-SRUGSFG-USWT6QB"; };
+        "eink" = {id = "X5SZ3EW-G7CDNUQ-KGBK2EL-23SZV5S-YUQFLNA-AV7DKTC-TVOKJNS-XEGSJAI";};
+        "workstation" = {id = "WDMVTWV-DFMXTPI-4WDHEGU-WZ4PYYL-KPSHKJM-UCGKGDA-SRUGSFG-USWT6QB";};
       };
     };
   };
-
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -145,6 +147,4 @@
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "24.11"; # Did you read the comment?
-
 }
-
