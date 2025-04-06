@@ -14,20 +14,12 @@
   #foliate.enable = true;
   evince.enable = true;
   latex.enable = true;
-  # foliate.enable = true;
+  foliate.enable = true;
   # Enable Firefox settings
   programs.firefox = {
     enable = true;
   };
   nvf.enable = true;
-
-  #  home.file.".mozilla/startpage" = {
-  #    source = ./sources/startpage;
-  #    executable = false;
-  #    recursive = true;
-  #  };
-
-  #  evince.enable = true;
 
   xdg.enable = true;
   xdg.mimeApps.enable = true;

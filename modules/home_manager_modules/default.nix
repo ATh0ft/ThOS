@@ -1,9 +1,9 @@
-{ ... }: {
+{...}: {
   imports = [
     ./firefox
-#    ./foliate
+    ./foliate
     ./evince
-#    ./direnv
+    ./direnv
     ./latex
     ./nvf
   ];
