@@ -24,6 +24,15 @@ in {
           vim.lsp = {
             enable = true;
             formatOnSave = true;
+            trouble.enable = true;
+          };
+          vim.diagnostics.enable = true;
+          vim.diagnostics.config.virtual_text = {
+            format = lib.generators.mkLuaInline ''
+              function(diagnostic)
+                return string.format("%s [%s]", diagnostic.message, diagnostic.source)
+              end
+            '';
           };
 
           vim.languages = {

@@ -97,6 +97,16 @@
             };
           };
         };
+        "coding-projects" = {
+          path = "/home/a/sync/coding-projects";
+          devices = ["workstation"];
+          versioning = {
+            type = "simple";
+            params = {
+              keep = "10";
+            };
+          };
+        };
       };
       devices = {
         "eink" = {id = "X5SZ3EW-G7CDNUQ-KGBK2EL-23SZV5S-YUQFLNA-AV7DKTC-TVOKJNS-XEGSJAI";};

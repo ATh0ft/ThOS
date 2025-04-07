@@ -15,6 +15,7 @@
   evince.enable = true;
   latex.enable = true;
   foliate.enable = true;
+  direnv.enable = true;
   # Enable Firefox settings
   programs.firefox = {
     enable = true;
