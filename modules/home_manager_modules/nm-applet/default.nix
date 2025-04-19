@@ -5,11 +5,11 @@
   config,
   ...
 }: let
-  cfg = config.foliate;
-  dependencies = with pkgs; [foliate];
+  cfg = config.nm-applet;
+  dependencies = with pkgs; [networkmanagerapplet];
 in {
   options = {
-    foliate.enable = lib.mkEnableOption "enable foliate";
+    nm-applet.enable = lib.mkEnableOption "enable nm gtk app";
   };
 
   config = lib.mkIf cfg.enable {

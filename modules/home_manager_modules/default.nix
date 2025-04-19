@@ -6,5 +6,6 @@
     ./direnv
     ./latex
     ./nvf
+    ./nm-applet
   ];
 }

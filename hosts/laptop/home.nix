@@ -21,6 +21,7 @@
     enable = true;
   };
   nvf.enable = true;
+  nm-applet.enable = true;
 
   xdg.enable = true;
   xdg.mimeApps.enable = true;

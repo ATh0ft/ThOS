@@ -12,15 +12,13 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../../modules/nixos_modules
-    ../../modules/nixos_modules/git # Import Git module
-    ../../modules/nixos_modules/hyprland # Import Hyprland module
-    ../../modules/nixos_modules/openssh
-    ../../modules/nixos_modules/tmux
   ];
 
   nixpkgs.config.allowUnfree = true;
   syncthing.enable = true;
   zerotierone.enable = true;
+
+  sddm.enable = true;
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -59,16 +57,6 @@
     usbutils
     glib
   ];
-  services.displayManager.sddm.wayland.enable = true;
-  services.displayManager.sddm.enable = true;
-
-  #  home-manager = {
-  #    useGlobalPkgs = true;
-  #    useUserPackages = true;
-  #    users = {
-  #      a = import ./home.nix;
-  #    };
-  #  };
 
   services.syncthing = {
     #declarative = {
@@ -79,7 +67,7 @@
       folders = {
         "books" = {
           path = "/home/a/sync/books";
-          devices = ["eink" "workstation"];
+          devices = ["eink" "workstation" "optiplex"];
           versioning = {
             type = "simple";
             params = {
@@ -89,7 +77,7 @@
         };
         "notes" = {
           path = "/home/a/sync/notes";
-          devices = ["eink" "workstation"];
+          devices = ["eink" "workstation" "optiplex"];
           versioning = {
             type = "simple";
             params = {
@@ -97,9 +85,9 @@
             };
           };
         };
-        "coding-projects" = {
-          path = "/home/a/sync/coding-projects";
-          devices = ["workstation"];
+        "coding_projects" = {
+          path = "/home/a/sync/coding_projects";
+          devices = ["workstation" "optiplex"];
           versioning = {
             type = "simple";
             params = {
@@ -111,6 +99,7 @@
       devices = {
         "eink" = {id = "X5SZ3EW-G7CDNUQ-KGBK2EL-23SZV5S-YUQFLNA-AV7DKTC-TVOKJNS-XEGSJAI";};
         "workstation" = {id = "WDMVTWV-DFMXTPI-4WDHEGU-WZ4PYYL-KPSHKJM-UCGKGDA-SRUGSFG-USWT6QB";};
+        "optiplex" = {id = "GDO5D2G-52NWJY6-KAJ4VIY-4RMETIC-WYFEYJR-B3OJW4G-2AOBUOV-Y2W4WQA";};
       };
     };
   };
