@@ -7,5 +7,6 @@
     ./latex
     ./nvf
     ./nm-applet
+    ./swayimg
   ];
 }

@@ -14,6 +14,7 @@
     hyprpaper # Wallpaper utility
     hyprlock # Lock screen
     hypridle # Idle manager
+    hyprshot # Screen shot utility
     waybar # Status bar
     wofi # Application launcher
     kitty # Terminal
@@ -45,5 +46,8 @@
   users.users.a = {
     isNormalUser = true;
     extraGroups = ["seat" "video" "input" "wheel"];
+  };
+  environment.sessionVariables = rec {
+    HYPRSHOT_DIR = "/home/a/pictures/screenshots/";
   };
 }

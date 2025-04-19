@@ -1,5 +1,10 @@
-{ pkgs, lib, inputs, config, ... }:
-let
+{
+  pkgs,
+  lib,
+  inputs,
+  config,
+  ...
+}: let
   cfg = config.firefox;
 in {
   imports = [
@@ -13,7 +18,6 @@ in {
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
     {
-
       xdg = {
         enable = true;
         mimeApps.enable = true;
@@ -27,4 +31,3 @@ in {
     }
   ]);
 }
-
