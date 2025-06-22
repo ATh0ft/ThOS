@@ -109,9 +109,23 @@ in {
               desc = "open file tree";
             }
             {
+              key = "<leader>fb";
+              mode = ["n"];
+              action = "<cmd>Telescope buffers<CR>";
+              silent = true;
+              desc = "telescope buffer search";
+            }
+            {
               key = "<M-i>";
               mode = ["n"];
               action = ":ToggleTerm<CR>";
+              silent = false;
+              desc = "toggle terminal";
+            }
+            {
+              key = "<M-i>";
+              mode = ["i"];
+              action = "<C-\\><C-n>:ToggleTerm<CR>";
               silent = false;
               desc = "toggle terminal";
             }

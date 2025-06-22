@@ -28,6 +28,17 @@
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
+  hardware.bluetooth.enable = true; # enables support for Bluetooth
+  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
+  # services.pipewire.enable = lib.mkForce false; # disable pipewiere to enable pulseaudio
+  # hardware.pulseaudio.enable = true;
+  hardware.bluetooth.settings = {
+    General = {
+      Enable = "Source,Sink,Media,Socket";
+    };
+  };
+  services.blueman.enable = true;
+
   # Set your time zone.
   time.timeZone = "Europe/Copenhagen";
 

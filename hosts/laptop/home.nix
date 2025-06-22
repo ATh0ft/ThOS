@@ -21,6 +21,13 @@
   programs.firefox = {
     enable = true;
   };
+
+  programs.bash = {
+    enable = true;
+    shellAliases = {
+      grep = "grep --color=auto";
+    };
+  };
   nvf.enable = true;
   nm-applet.enable = true;
 
