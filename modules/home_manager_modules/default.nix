@@ -8,6 +8,6 @@
     ./nvf
     ./nm-applet
     ./swayimg
-    ./gimp3
+    ./gimp
   ];
 }

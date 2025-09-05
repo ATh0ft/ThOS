@@ -2,14 +2,15 @@
   pkgs,
   lib,
   config,
+  inputs,
   ...
 }: let
-  cfg = config.gimp3;
-  dependencies = with pkgs; [gimp3];
+  cfg = config.gimp;
+  dependencies = with pkgs; [gimp];
 in {
   options = {
-    gimp3 = {
-      enable = lib.mkEnableOption "Enable evince";
+    gimp = {
+      enable = lib.mkEnableOption "Enable gimp";
     };
   };
 
