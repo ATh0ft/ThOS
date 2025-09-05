@@ -10,33 +10,22 @@
 
   home.username = "atc"; # Replace with your actual username
   home.homeDirectory = "/home/atc"; # Ensure this matches your home directory
-  home.stateVersion = "25.11"; # Adjust this based on your NixOS version
-  #foliate.enable = true;
-  #evince.enable = true;
+  home.stateVersion = "25.05"; # Adjust this based on your NixOS version
   latex.enable = true;
   foliate.enable = true;
-  #direnv.enable = true;
-  #swayimg.enable = true;
-  # Enable Firefox settings
-  #programs.firefox = {
-  #  enable = true;
-  #};
-
-  #programs.bash = {
-  #  enable = true;
-  #  shellAliases = {
-  #    grep = "grep --color=auto";
-  #  };
-  #};
   nvf.enable = true;
-  #nm-applet.enable = true;
+  gimp3.enable = true;
 
-  #xdg.enable = true;
-  #xdg.mimeApps.enable = true;
-  #xdg.mimeApps.defaultApplications = {
-  #  "text/html" = ["firefox.desktop"];
-  #  "text/xml" = ["firefox.desktop"];
-  #  "x-scheme-handler/http" = ["firefox.desktop"];
-  #  "x-scheme-handler/https" = ["firefox.desktop"];
-  #};
+  home.packages = with pkgs; [
+    home-manager
+    nerd-fonts.fira-code
+    nerd-fonts.droid-sans-mono
+    nerd-fonts.go-mono
+  ];
+
+  # home.fonts.packages = with pkgs; [
+  #   nerd-fonts.fira-code
+  #   nerd-fonts.droid-sans-mono
+  #   nerd-fonts.go-mono
+  # ];
 }
