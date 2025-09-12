@@ -18,6 +18,7 @@
   direnv.enable = true;
   swayimg.enable = true;
   # Enable Firefox settings
+  libreoffice-qt = true;
   programs.firefox = {
     enable = true;
   };
