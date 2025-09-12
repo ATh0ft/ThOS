@@ -4,18 +4,18 @@
   config,
   ...
 }: let
-  cfg = config.libreoffice-qt;
+  cfg = config.basic-python;
   dependencies = with pkgs; [
-    libreoffice-qt
-    hunspell
-    hunspellDicts.en_US
+    python313
+    python313Packages.numpy
+    python313Packages.matplotlib
   ];
 in {
   imports = [];
 
   options = {
-    libreoffice-qt = {
-      enable = lib.mkEnableOption "enables libre office";
+    basic-python = {
+      enable = lib.mkEnableOption "enables python with some basic packages";
     };
   };
 

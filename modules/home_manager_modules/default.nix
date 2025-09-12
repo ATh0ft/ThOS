@@ -1,5 +1,6 @@
 {...}: {
   imports = [
+    ./basic_python
     ./firefox
     ./foliate
     ./evince
