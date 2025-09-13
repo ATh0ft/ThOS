@@ -24,7 +24,7 @@ in {
           ### language support ###
           languages = {
             enableLSP = true;
-            enableFormat = true;
+            enableFormat = false;
             enableTreesitter = true;
 
             python.enable = true;
@@ -127,14 +127,14 @@ in {
               mode = ["i"];
               action = "<C-\\><C-n>:ToggleTerm<CR>";
               silent = false;
-              desc = "toggle terminal";
+              desc = "toggle terminal from insert mode";
             }
             {
               key = "<M-i>";
               mode = ["t"];
               action = "<C-\\><C-n>:ToggleTerm<CR>";
               silent = false;
-              desc = "toggle terminal";
+              desc = "close terminal from terminal mode";
             }
           ];
           theme = {

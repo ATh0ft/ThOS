@@ -14,7 +14,7 @@
   latex.enable = true;
   foliate.enable = true;
   nvf.enable = true;
-  gimp3.enable = true;
+  gimp.enable = true;
 
   home.packages = with pkgs; [
     home-manager
