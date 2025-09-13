@@ -1,12 +1,14 @@
 {...}: {
   imports = [
+    ./basic_python
     ./firefox
     ./foliate
     ./evince
     ./direnv
     ./latex
-    ./nvf
+    ./libre_office
     ./nm-applet
+    ./nvf
     ./swayimg
     ./gimp
   ];
