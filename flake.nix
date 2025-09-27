@@ -50,5 +50,30 @@
       ];
       extraSpecialArgs = {inherit inputs;};
     };
+    nixosConfigurations.optiplex = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      specialArgs = {inherit inputs;}; # ← ADD THIS
+      modules = [
+        ./hosts/optiplex/configuration.nix
+        ./modules/nixos_modules/git
+        ./modules/nixos_modules/hyprland
+        #./secrets/secrets.nix
+        home-manager.nixosModules.home-manager
+        agenix.nixosModules.default
+        inputs.stylix.nixosModules.stylix
+      ];
+    };
+
+    homeConfigurations.optiplex = home-manager.lib.homeManagerConfiguration {
+      pkgs = import nixpkgs {
+        system = "x86_64-linux";
+        config.allowUnfree = true;
+      };
+      modules = [
+        nvf.homeManagerModules.default # <- this imports the home-manager module that provides the options
+        ./hosts/optiplex/home.nix
+      ];
+      extraSpecialArgs = {inherit inputs;};
+    };
   };
 }
