@@ -15,6 +15,7 @@
   foliate.enable = true;
   nvf.enable = true;
   gimp.enable = true;
+  mongodb-compass.enable = true;
 
   home.packages = with pkgs; [
     home-manager

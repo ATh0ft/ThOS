@@ -30,10 +30,12 @@ in {
             python.enable = true;
             python.lsp.enable = true;
             python.lsp.server = "pyright";
+            python.format.enable = true;
             python.treesitter.enable = true;
             rust.enable = true;
             rust.lsp.enable = true;
             nix.enable = true;
+            nix.format.enable = true;
             nix.lsp.enable = true;
             clang.enable = true;
             clang.lsp.enable = true;

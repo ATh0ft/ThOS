@@ -11,5 +11,6 @@
     ./nvf
     ./swayimg
     ./gimp
+    ./mongodb_compass
   ];
 }
