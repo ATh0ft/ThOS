@@ -8,14 +8,15 @@
     ../../modules/home_manager_modules/default.nix
   ];
 
-  home.username = "atc"; # Replace with your actual username
-  home.homeDirectory = "/home/atc"; # Ensure this matches your home directory
+  home.username = "a"; # Replace with your actual username
+  home.homeDirectory = "/home/a"; # Ensure this matches your home directory
   home.stateVersion = "25.05"; # Adjust this based on your NixOS version
   latex.enable = true;
   foliate.enable = true;
   nvf.enable = true;
   gimp.enable = true;
   mongodb-compass.enable = true;
+  tmux.enable = true;
 
   home.packages = with pkgs; [
     home-manager

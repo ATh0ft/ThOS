@@ -12,5 +12,6 @@
     ./swayimg
     ./gimp
     ./mongodb_compass
+    ./tmux
   ];
 }
