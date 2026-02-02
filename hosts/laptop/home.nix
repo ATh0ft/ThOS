@@ -17,8 +17,10 @@
   foliate.enable = true;
   direnv.enable = true;
   swayimg.enable = true;
+  zotero.enable = true;
   # Enable Firefox settings
   libreoffice-qt.enable = true;
+  gimp.enable = true;
   basic-python.enable = true;
   programs.firefox = {
     enable = true;

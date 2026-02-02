@@ -5,23 +5,16 @@
   ...
 }: let
   cfg = config.basic-python;
-  dependencies = with pkgs; [
-    python313
-    python313Packages.numpy
-    python313Packages.matplotlib
-  ];
+  pythonEnv = pkgs.python313.withPackages (ps:
+    with ps; [
+      numpy
+      matplotlib
+    ]);
 in {
-  imports = [];
+  options.basic-python.enable =
+    lib.mkEnableOption "Enable Python with some basic packages";
 
-  options = {
-    basic-python = {
-      enable = lib.mkEnableOption "enables python with some basic packages";
-    };
+  config = lib.mkIf cfg.enable {
+    home.packages = [pythonEnv];
   };
-
-  config = lib.mkIf cfg.enable (lib.mkMerge [
-    {
-      home.packages = dependencies;
-    }
-  ]);
 }
