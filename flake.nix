@@ -61,5 +61,16 @@
       ];
       extraSpecialArgs = {inherit inputs;};
     };
+    homeConfigurations.home_workstation = home-manager.lib.homeManagerConfiguration {
+      pkgs = import nixpkgs {
+        system = "x86_64-linux";
+        config.allowUnfree = true;
+      };
+      modules = [
+        nvf.homeManagerModules.default # <- this imports the home-manager module that provides the options
+        ./hosts/home_workstation/home.nix
+      ];
+      extraSpecialArgs = {inherit inputs;};
+    };
   };
 }
