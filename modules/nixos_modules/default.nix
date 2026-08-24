@@ -5,6 +5,7 @@
     ./sddm
     ./tmux
     ./hyprland
+    ./netbird
     ./openssh
   ];
 }

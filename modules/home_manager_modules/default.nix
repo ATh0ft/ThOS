@@ -11,6 +11,7 @@
     ./nvf
     ./swayimg
     ./gimp
+    ./zotero
     ./mongodb_compass
     ./tmux
   ];
