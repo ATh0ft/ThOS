@@ -6,11 +6,12 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nvf = {
+      # url = "github:ATh0ft/nvf_with_latex";
       url = "github:NotAShelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # agenix.url = "github:ryantm/agenix";
-    # agenix.inputs.nixpkgs.follows = "nixpkgs";
+    agenix.url = "github:ryantm/agenix";
+    agenix.inputs.nixpkgs.follows = "nixpkgs";
     # stylix = {
     #   url = "github:danth/stylix/release-24.11";
     #   inputs.nixpkgs.follows = "nixpkgs";
@@ -131,7 +132,7 @@
         #./secrets/secrets.nix
         home-manager.nixosModules.home-manager
         agenix.nixosModules.default
-        inputs.stylix.nixosModules.stylix
+        # inputs.stylix.nixosModules.stylix
       ];
     };
 
@@ -153,4 +154,16 @@
         config.allowUnfree = true;
       };
     };
+    homeConfigurations.home_workstation = home-manager.lib.homeManagerConfiguration {
+      pkgs = import nixpkgs {
+        system = "x86_64-linux";
+        config.allowUnfree = true;
+      };
+      modules = [
+        nvf.homeManagerModules.default # <- this imports the home-manager module that provides the options
+        ./hosts/home_workstation/home.nix
+      ];
+      extraSpecialArgs = {inherit inputs;};
+    };
+  };
 }
