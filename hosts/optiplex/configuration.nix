@@ -1,15 +1,24 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
-{ config, lib, pkgs, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../../modules/nixos_modules
+  ];
 
+  nixpkgs.config.allowUnfree = true;
+  syncthing.enable = true;
+  zerotierone.enable = true;
+
+  sddm.enable = true;
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -17,12 +26,10 @@
   networking.hostName = "nixos"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   # Set your time zone.
   time.timeZone = "Europe/Copenhagen";
-
-  
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -39,9 +46,6 @@
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
 
-
-  
-
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
   # services.xserver.xkb.options = "eurosign:e,caps:escape";
@@ -50,12 +54,11 @@
   # services.printing.enable = true;
 
   # Enable sound.
-  # hardware.pulseaudio.enable = true;
+  hardware.pulseaudio.enable = true;
   # OR
-  # services.pipewire = {
-  #   enable = true;
-  #   pulse.enable = true;
-  # };
+  services.pipewire = {
+    enable = false;
+  };
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
@@ -63,37 +66,35 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.a = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "input" "networkmanager"]; # Enable ‘sudo’ for the user.
+    extraGroups = ["wheel"]; # Enable ‘sudo’ for the user.
   };
 
   # programs.firefox.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    vim
     wget
-    neofetch 
-    neovim 
-    tmux
+    kitty
+    home-manager
+    git
+    tree
     htop
-    syncthing 
-    git 
-    sysbench
-    lm_sensors
-    dmidecode
-    zerotierone
-    wakeonlan
-    yazi
-    python310
-  ]++(with python310Packages;[
-    numpy 
-    dask
-    distributed
-    ]);
-  environment.variables.EDITOR = "vim";
-  nixpkgs.config.allowUnfree = true;
+    age
+    inputs.agenix.packages.${pkgs.system}.default
+    jmtpfs
+    usbutils
+    glib
+    parted
+  ];
+  #++(with python310Packages;[
+  #    numpy
+  #    dask
+  #    distributed
+  #    ]);
+  environment.variables.EDITOR = "nvim";
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -105,62 +106,59 @@
 
   # List services that you want to enable:
 
-
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-services.syncthing = {
-  enable = true;
-  user = "a";  # Ensure this is your actual user
-  group = "users";
-  dataDir = "/home/a/sync";  # Make sure this directory exists
-  configDir = "/home/a/.config/syncthing";  
-  openDefaultPorts = true;
-  guiAddress ="0.0.0.0:8384";
-  declarative = {
-    overrideDevices = true;
-    overrideFolders = true;
-    devices = {
-      "laptop" = { id = "O22CQUZ-WRVDOWP-UECPJEZ-5XBNIIB-YYZXPGI-A224DWF-MUPY5CV-XV3CIQY"; };
-      "eink" = { id = "X5SZ3EW-G7CDNUQ-KGBK2EL-23SZV5S-YUQFLNA-AV7DKTC-TVOKJNS-XEGSJAI"; };
-      "workstation" = { id = "WDMVTWV-DFMXTPI-4WDHEGU-WZ4PYYL-KPSHKJM-UCGKGDA-SRUGSFG-USWT6QB"; };
-      "overflade" = {id = "HAG3DSW-FMD5ZU6-PB254F5-YRXWQXY-D5EVOZK-VQI36XO-ZF23GLK-IMBYHAC"; };
-    };
-    folders = {
-      "books" = { 
-        path = "/home/a/sync/books"; 
-        devices = [ "laptop" "eink" "workstation" "overflade"]; 
-        versioning = { 
-          type = "simple";
-          params = { 
-            keep = "10";
-          }; 
-
-        }; 
+  services.syncthing = {
+    enable = true;
+    user = "a"; # Ensure this is your actual user
+    group = "users";
+    dataDir = "/home/a/sync"; # Make sure this directory exists
+    configDir = "/home/a/.config/syncthing";
+    openDefaultPorts = true;
+    guiAddress = "0.0.0.0:8384";
+    declarative = {
+      overrideDevices = true;
+      overrideFolders = true;
+      devices = {
+        "laptop" = {id = "O22CQUZ-WRVDOWP-UECPJEZ-5XBNIIB-YYZXPGI-A224DWF-MUPY5CV-XV3CIQY";};
+        "eink" = {id = "X5SZ3EW-G7CDNUQ-KGBK2EL-23SZV5S-YUQFLNA-AV7DKTC-TVOKJNS-XEGSJAI";};
+        "workstation" = {id = "WDMVTWV-DFMXTPI-4WDHEGU-WZ4PYYL-KPSHKJM-UCGKGDA-SRUGSFG-USWT6QB";};
+        "overflade" = {id = "HAG3DSW-FMD5ZU6-PB254F5-YRXWQXY-D5EVOZK-VQI36XO-ZF23GLK-IMBYHAC";};
       };
-      "notes" = { 
-        path = "/home/a/sync/notes"; 
-        devices = [ "laptop" "eink" "workstation" "overflade"]; 
-        versioning = { 
-          type = "simple"; 
-          params = { 
-            keep = "10";
-          }; 
-
-        }; 
-      };
-      "coding_projects" = {
-      	path = "/home/a/sync/coding_projects";
-	devices = ["laptop" "workstation"];
-	versioning = {
-	  type = "simple";
-	  params = {
-	    keep = "10";
-	  };
-	};
+      folders = {
+        "books" = {
+          path = "/home/a/sync/books";
+          devices = ["laptop" "eink" "workstation" "overflade"];
+          versioning = {
+            type = "simple";
+            params = {
+              keep = "10";
+            };
+          };
+        };
+        "notes" = {
+          path = "/home/a/sync/notes";
+          devices = ["laptop" "eink" "workstation" "overflade"];
+          versioning = {
+            type = "simple";
+            params = {
+              keep = "10";
+            };
+          };
+        };
+        "coding_projects" = {
+          path = "/home/a/sync/coding_projects";
+          devices = ["laptop" "workstation"];
+          versioning = {
+            type = "simple";
+            params = {
+              keep = "10";
+            };
+          };
+        };
       };
     };
   };
-};
 
   services.zerotierone = {
     enable = true;
@@ -168,10 +166,15 @@ services.syncthing = {
   };
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 8284 8385 22000 ];
-  networking.firewall.allowedUDPPorts = [ 21027 ];
+  networking.firewall.allowedTCPPorts = [8284 8385 22000];
+  networking.firewall.allowedUDPPorts = [21027];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+
+  fileSystems."/home" = {
+    device = "/dev/disk/by-uuid/a6cdbc5b-d14e-4733-95c1-9eb58579c63d";
+    fsType = "ext4";
+  };
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
@@ -196,6 +199,4 @@ services.syncthing = {
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "24.11"; # Did you read the comment?
-
 }
-

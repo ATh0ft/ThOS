@@ -2,10 +2,12 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   # Enable Hyprland
   programs.hyprland = {
     enable = true;
+    withUWSM = true;
   };
 
   # Install essential packages
@@ -20,15 +22,15 @@
     kitty # Terminal
     alacritty
     dunst # Notifications
-    rofi-wayland # Alternative launcher
+    rofi # Alternative launcher
     firefox # Browser
-    swww # Wallpaper manager
+    awww # Wallpaper manager
     wl-clipboard # Clipboard support
     grim
     slurp # Screenshots
     mako # Notification daemo
-    kdePackages.dolphin #File explorer
-    cmus #music player
+    kdePackages.dolphin # File explorer
+    cmus # music player
     brightnessctl
   ];
 
@@ -38,7 +40,7 @@
   # Configure XDG portal for Wayland
   xdg.portal = {
     enable = true;
-    extraPortals = [pkgs.xdg-desktop-portal-wlr];
+    extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
   };
 
   # Enable Polkit (needed for GUI applications to request permissions)
@@ -47,7 +49,12 @@
   # Ensure the user is in the right groups for Wayland access
   users.users.a = {
     isNormalUser = true;
-    extraGroups = ["seat" "video" "input" "wheel"];
+    extraGroups = [
+      "seat"
+      "video"
+      "input"
+      "wheel"
+    ];
   };
   environment.sessionVariables = rec {
     HYPRSHOT_DIR = "/home/a/pictures/screenshots/";

@@ -3,14 +3,15 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     ../../modules/home_manager_modules/default.nix
   ];
 
   home.username = "a"; # Replace with your actual username
   home.homeDirectory = "/home/a"; # Ensure this matches your home directory
-  home.stateVersion = "23.11"; # Adjust this based on your NixOS version
+  home.stateVersion = "26.05"; # Adjust this based on your NixOS version
   #foliate.enable = true;
   evince.enable = true;
   latex.enable = true;
@@ -22,9 +23,7 @@
   libreoffice-qt.enable = true;
   gimp.enable = true;
   basic-python.enable = true;
-  programs.firefox = {
-    enable = true;
-  };
+  firefox.enable = true;
 
   programs.bash = {
     enable = true;
@@ -38,9 +37,9 @@
   xdg.enable = true;
   xdg.mimeApps.enable = true;
   xdg.mimeApps.defaultApplications = {
-    "text/html" = ["firefox.desktop"];
-    "text/xml" = ["firefox.desktop"];
-    "x-scheme-handler/http" = ["firefox.desktop"];
-    "x-scheme-handler/https" = ["firefox.desktop"];
+    "text/html" = [ "firefox.desktop" ];
+    "text/xml" = [ "firefox.desktop" ];
+    "x-scheme-handler/http" = [ "firefox.desktop" ];
+    "x-scheme-handler/https" = [ "firefox.desktop" ];
   };
 }

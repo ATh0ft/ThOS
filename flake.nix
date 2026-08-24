@@ -16,21 +16,117 @@
     #   url = "github:danth/stylix/release-24.11";
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
+    nixpkgs-netbird.url = "github:NixOS/nixpkgs/nixos-unstable";
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    zen-browser = {
+      url = "github:youwen5/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
-  outputs = inputs @ {
-    self,
-    nixpkgs,
-    home-manager,
-    nvf,
-    agenix,
-    ...
-  }: {
-    nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      home-manager,
+      nvf,
+      agenix,
+      ...
+    }:
+    {
+      nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit inputs; }; # ← ADD THIS
+        # modules = [
+        #   ./hosts/laptop/configuration.nix
+        #   ./modules/nixos_modules/git
+        #   ./modules/nixos_modules/hyprland
+        #   #./secrets/secrets.nix
+        #   home-manager.nixosModules.home-manager
+        #   {
+        #     home-manager.users.a = import ./hosts/laptop/home.nix;
+        #   }
+        #
+        #   nvf.homeManagerModules.default
+        #   # agenix.nixosModules.default
+        #   # inputs.stylix.nixosModules.stylix
+        # ];
+        # modules = [
+        #   ./hosts/laptop/configuration.nix
+        #   ./modules/nixos_modules/git
+        #   ./modules/nixos_modules/hyprland
+        #
+        #   home-manager.nixosModules.home-manager
+        #
+        #   nvf.homeManagerModules.default
+        #
+        #   {
+        #     home-manager.useGlobalPkgs = true;
+        #     home-manager.useUserPackages = true;
+        #
+        #     home-manager.users.a = import ./hosts/laptop/home.nix;
+        #   }
+        # ];
+        modules = [
+          ./hosts/laptop/configuration.nix
+          ./modules/nixos_modules/git
+          ./modules/nixos_modules/hyprland
+
+          home-manager.nixosModules.home-manager
+
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+
+            home-manager.users.a =
+              { ... }:
+              {
+                imports = [
+                  nvf.homeManagerModules.default
+                  ./hosts/laptop/home.nix
+                ];
+              };
+          }
+        ];
+
+      };
+
+      homeConfigurations.laptop = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";
+          config.allowUnfree = true;
+        };
+        modules = [
+          nvf.homeManagerModules.default # <- this imports the home-manager module that provides the options
+          ./hosts/laptop/home.nix
+        ];
+        extraSpecialArgs = { inherit inputs; };
+      };
+      homeConfigurations.work_laptop = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";
+          config.allowUnfree = true;
+        };
+        modules = [
+          nvf.homeManagerModules.default # <- this imports the home-manager module that provides the options
+          ./hosts/work_laptop/home.nix
+        ];
+        extraSpecialArgs = { inherit inputs; };
+      modules = [
+        nvf.homeManagerModules.default # <- this imports the home-manager module that provides the options
+        ./hosts/laptop/home.nix
+      ];
+      extraSpecialArgs = {inherit inputs;};
+    };
+    nixosConfigurations.optiplex = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = {inherit inputs;}; # ← ADD THIS
       modules = [
-        ./hosts/laptop/configuration.nix
+        ./hosts/optiplex/configuration.nix
         ./modules/nixos_modules/git
         ./modules/nixos_modules/hyprland
         #./secrets/secrets.nix
@@ -40,27 +136,23 @@
       ];
     };
 
-    homeConfigurations.laptop = home-manager.lib.homeManagerConfiguration {
+    homeConfigurations.optiplex = home-manager.lib.homeManagerConfiguration {
       pkgs = import nixpkgs {
         system = "x86_64-linux";
         config.allowUnfree = true;
       };
       modules = [
         nvf.homeManagerModules.default # <- this imports the home-manager module that provides the options
-        ./hosts/laptop/home.nix
+        ./hosts/optiplex/home.nix
       ];
       extraSpecialArgs = {inherit inputs;};
     };
+
     homeConfigurations.work_laptop = home-manager.lib.homeManagerConfiguration {
       pkgs = import nixpkgs {
         system = "x86_64-linux";
         config.allowUnfree = true;
       };
-      modules = [
-        nvf.homeManagerModules.default # <- this imports the home-manager module that provides the options
-        ./hosts/work_laptop/home.nix
-      ];
-      extraSpecialArgs = {inherit inputs;};
     };
     homeConfigurations.home_workstation = home-manager.lib.homeManagerConfiguration {
       pkgs = import nixpkgs {

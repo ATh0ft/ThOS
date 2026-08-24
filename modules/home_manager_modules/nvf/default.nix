@@ -3,9 +3,11 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   cfg = config.nvf;
-in {
+in
+{
   options = {
     # imports = [
     #   ./lazy_plugins/vimtex.nix
@@ -15,10 +17,11 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable (lib.mkMerge [
-    {
-      programs.nvf = {
-        enable = true;
+  config = lib.mkIf cfg.enable (
+    lib.mkMerge [
+      {
+        programs.nvf = {
+          enable = true;
 
         settings.vim = {
           ### language support ###
@@ -58,43 +61,43 @@ in {
           ### plugins ###
           git.enable = true;
 
-          autocomplete.blink-cmp.enable = true;
-          # autocomplete.nvim-cmp.enable = true;
-          autopairs.nvim-autopairs.enable = true;
+            autocomplete.blink-cmp.enable = true;
+            # autocomplete.nvim-cmp.enable = true;
+            autopairs.nvim-autopairs.enable = true;
 
-          # autocomplete.nvim-cmp.enable = true;
-          snippets.luasnip.enable = true;
-          # autopairs.nvim-autopairs.enable = true;
-          # filetree.neo-tree.enable = true;
-          filetree = {
-            nvimTree.enable = true;
-            nvimTree.openOnSetup = false;
-          };
-          telescope.enable = true;
+            # autocomplete.nvim-cmp.enable = true;
+            snippets.luasnip.enable = true;
+            # autopairs.nvim-autopairs.enable = true;
+            # filetree.neo-tree.enable = true;
+            filetree = {
+              nvimTree.enable = true;
+              nvimTree.openOnSetup = false;
+            };
+            telescope.enable = true;
 
-          terminal.toggleterm = {
-            enable = true;
-            setupOpts.direction = "float";
-          };
+            terminal.toggleterm = {
+              enable = true;
+              setupOpts.direction = "float";
+            };
 
-          statusline.lualine.enable = true;
-          binds.cheatsheet.enable = true;
-          tabline = {
-            nvimBufferline.enable = true;
-          };
-          comments = {
-            comment-nvim.enable = true;
-            comment-nvim.mappings.toggleCurrentLine = "<leader>/";
-          };
-          dashboard = {
-            dashboard-nvim.enable = true;
-            alpha.enable = true;
-          };
-          utility = {
-            ccc.enable = false;
-            diffview-nvim.enable = true;
-            yanky-nvim.enable = true;
-          };
+            statusline.lualine.enable = true;
+            binds.cheatsheet.enable = true;
+            tabline = {
+              nvimBufferline.enable = true;
+            };
+            comments = {
+              comment-nvim.enable = true;
+              comment-nvim.mappings.toggleCurrentLine = "<leader>/";
+            };
+            dashboard = {
+              dashboard-nvim.enable = true;
+              alpha.enable = true;
+            };
+            utility = {
+              ccc.enable = false;
+              diffview-nvim.enable = true;
+              # yanky-nvim.enable = true;
+            };
 
           ### configuration ###
           viAlias = true;
@@ -167,7 +170,7 @@ in {
             style = "moon";
           };
         };
-      };
-    }
-  ]);
+      }
+    ]
+  );
 }
