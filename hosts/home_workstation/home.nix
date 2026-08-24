@@ -16,5 +16,6 @@
   nvf.enable = true;
   gimp.enable = false;
   zotero.enable = true;
+  obsidian.enable = true;
 
 }

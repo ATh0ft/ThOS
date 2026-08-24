@@ -9,6 +9,7 @@
     ./libre_office
     ./nm-applet
     ./nvf
+    ./obsidian
     ./swayimg
     ./gimp
     ./zotero

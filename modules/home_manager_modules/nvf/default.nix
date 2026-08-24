@@ -7,9 +7,9 @@
   cfg = config.nvf;
 in {
   options = {
-    imports = [
-      ./lazy_plugins/vimtex.nix
-    ];
+    # imports = [
+    #   ./lazy_plugins/vimtex.nix
+    # ];
     nvf = {
       enable = lib.mkEnableOption "Enable nvf";
     };
@@ -23,13 +23,13 @@ in {
         settings.vim = {
           ### language support ###
           languages = {
-            enableLSP = true;
+            # enableLSP = true;
             enableFormat = false;
             enableTreesitter = true;
 
             python.enable = true;
             python.lsp.enable = true;
-            python.lsp.server = "pyright";
+            python.lsp.servers = ["pyright"];
             python.treesitter.enable = true;
             rust.enable = true;
             rust.lsp.enable = true;
@@ -38,8 +38,23 @@ in {
             clang.enable = true;
             clang.lsp.enable = true;
 
-            latex.enable = true;
+            #web dev
+            # js.enable = true;
+            # js.lsp.enable = true;
+            html.enable = true;
+            css.enable = true;
+
+            yaml.enable = true;
+            yaml.lsp.enable = true;
+
+            # latex.enable = true;
+
+
           };
+
+
+          formatter.conform-nvim.enable = true;
+
           ### plugins ###
           git.enable = true;
 
@@ -91,6 +106,7 @@ in {
           };
           options.tabstop = 4;
           options.shiftwidth = 0;
+          options.shada = true;
           diagnostics.enable = true;
           diagnostics.config.virtual_text = {
             format = lib.generators.mkLuaInline ''
@@ -99,7 +115,14 @@ in {
               end
             '';
           };
-          useSystemClipboard = true;
+          # useSystemClipboard = true;
+          # programs.nvf.settings.vim.clipboard
+          clipboard = {
+  enable = true;
+  registers = "unnamedplus";
+
+  providers.wl-copy.enable = true;
+};
           keymaps = [
             {
               key = "<leader>e";

@@ -6,15 +6,16 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nvf = {
-      url = "github:ATh0ft/nvf_with_latex";
+      # url = "github:ATh0ft/nvf_with_latex";
+      url = "github:NotAShelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
-    stylix = {
-      url = "github:danth/stylix/release-24.11";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # stylix = {
+    #   url = "github:danth/stylix/release-24.11";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
 
   outputs = inputs @ {
@@ -35,7 +36,7 @@
         #./secrets/secrets.nix
         home-manager.nixosModules.home-manager
         agenix.nixosModules.default
-        inputs.stylix.nixosModules.stylix
+        # inputs.stylix.nixosModules.stylix
       ];
     };
 
